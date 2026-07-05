@@ -1,4 +1,4 @@
-# 🌫️ AirNet — Real-Time Air Quality Intelligence Platform
+# 🌫️ AirNet — Urban Atmospheric Intelligence System
 
 > **Government-grade air quality monitoring, AI-powered policy simulation, and atmospheric analytics for Delhi NCR.**
 
