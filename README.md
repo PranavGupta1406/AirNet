@@ -25,7 +25,7 @@ AirNet is a full-stack web application that pulls live air quality data from the
 
 | System | Description |
 |--------|-------------|
-| **System 1 — Live Sensor Feed** | Syncs real-time AQI, PM2.5, PM10, NO₂ data from WAQI for 20 Delhi NCR zones every 30 minutes |
+| **System 1 — Live Sensor Feed** | Syncs real-time AQI, PM2.5, PM10, NO2 data from WAQI for 20 Delhi NCR zones every 30 minutes |
 | **System 2 — 24h AQI Forecast** | Pulls 2-day hourly forecasts from Open-Meteo and anchors them to live WAQI baselines per zone |
 | **System 3 — AI Analysis** | Uses Gemini AI to estimate zone-level stress, spike probability, vulnerability, and pollution source |
 | **System 4 — Policy Simulation Engine** | Deterministic, sub-200ms simulation of government interventions using weighted impact matrices and Gaussian plume dispersion |
@@ -276,4 +276,4 @@ AirNet uses **SQLite** (auto-created on first run via Sequelize). The database i
 
 ## License
 
-ISC License &copy; 2026 Pranav Gupta
+ISC License (c) 2026 Pranav Gupta
