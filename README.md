@@ -1,12 +1,27 @@
-# 🌫️ AirNet — Real-Time Air Quality Intelligence Platform
+# AirNet — Real-Time Air Quality Intelligence Platform
 
-> **Government-grade air quality monitoring, AI-powered policy simulation, and atmospheric analytics for Delhi NCR.**
+> Government-grade air quality monitoring, AI-powered policy simulation, and atmospheric analytics for Delhi NCR.
 
 AirNet is a full-stack web application that pulls live air quality data from the WAQI (World Air Quality Index) network, enriches it with Google Gemini AI analysis, stores zone-level readings in a SQLite database, and presents them on an interactive real-time dashboard. A built-in policy simulation engine lets users model the impact of government interventions — such as traffic restrictions and industrial caps — on projected AQI outcomes.
 
 ---
 
-## 🖼️ Overview
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [API Reference](#api-reference)
+- [AI and Simulation Models](#ai-and-simulation-models)
+- [Database](#database)
+- [Security](#security)
+- [License](#license)
+
+---
+
+## Overview
 
 | System | Description |
 |--------|-------------|
@@ -17,22 +32,22 @@ AirNet is a full-stack web application that pulls live air quality data from the
 
 ---
 
-## ✨ Features
+## Features
 
-- 🗺️ **Interactive NCR Map** — Live AQI heatmap of 20 Delhi NCR zones with pollutant drill-down
-- 📈 **Analytics Dashboard** — Trend charts, city comparisons, hotspot detection, and 30/60-day historical baselines
-- 🤖 **AI Policy Recommendations** — Gemini AI generates ranked, source-specific intervention strategies per zone with disruption vs. impact scatter analysis
-- ⚙️ **Policy Simulation** — 5-slider real-time simulation (traffic, industrial, heavy vehicles, dust, construction) with projected AQI drop and recovery time
-- 🏛️ **Government Policy Generator** — AI-assisted policy drafts with Gaussian Plume atmospheric dispersion modelling for quantified impact estimates
-- 📊 **Reports API** — Structured API endpoints for programmatic access to all analytics data
-- 🔄 **Auto-sync** — WAQI data synced every 30 minutes; database auto-pruned to a rolling 60-day window
+- **Interactive NCR Map** — Live AQI heatmap of 20 Delhi NCR zones with pollutant drill-down
+- **Analytics Dashboard** — Trend charts, city comparisons, hotspot detection, and 30/60-day historical baselines
+- **AI Policy Recommendations** — Gemini AI generates ranked, source-specific intervention strategies per zone with disruption vs. impact scatter analysis
+- **Policy Simulation** — 5-slider real-time simulation (traffic, industrial, heavy vehicles, dust, construction) with projected AQI drop and recovery time
+- **Government Policy Generator** — AI-assisted policy drafts with Gaussian Plume atmospheric dispersion modelling for quantified impact estimates
+- **Reports API** — Structured API endpoints for programmatic access to all analytics data
+- **Auto-sync** — WAQI data synced every 30 minutes; database auto-pruned to a rolling 60-day window
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
-|-------|-----------|
+|-------|------------|
 | **Frontend** | Vanilla HTML5, CSS3, JavaScript |
 | **Backend** | Node.js, Express 5 |
 | **Database** | SQLite3 via Sequelize ORM |
@@ -43,7 +58,7 @@ AirNet is a full-stack web application that pulls live air quality data from the
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 airnet/
@@ -90,7 +105,7 @@ airnet/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -151,17 +166,19 @@ Navigate to **[http://localhost:3005](http://localhost:3005)**
 
 ---
 
-## 🌐 API Reference
+## API Reference
 
 The REST API is served on `http://localhost:4000/api/v1`.
 
 ### Sensors
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/sensors/live` | Fetch latest AQI readings for all zones |
 | `POST` | `/sensors/sync` | Manually trigger a WAQI data sync |
 
 ### Analytics
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/analytics/trends?city_id=delhi&days=7` | Hourly AQI trend data |
@@ -171,6 +188,7 @@ The REST API is served on `http://localhost:4000/api/v1`.
 | `GET` | `/analytics/zone-history?zone=Rohini` | 60-day historical baseline for simulation |
 
 ### Policy
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/policy` | List all policies |
@@ -181,21 +199,25 @@ The REST API is served on `http://localhost:4000/api/v1`.
 | `PATCH` | `/policy/:id/status` | Update a policy status (Draft / Active / Archived) |
 
 ### Simulation Engine
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `POST` | `/simulate/simulate-policy` | Real-time deterministic simulation with 5 intervention sliders |
 
 ### Health
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/health` | API server health check |
 
 ---
 
-## 🧠 AI & Simulation Models
+## AI and Simulation Models
 
 ### Gemini AI Integration
+
 When a valid `GEMINI_API_KEY` is set, Gemini AI is used to:
+
 - Estimate zone-level AQI, stress index, spike probability, and primary pollution source
 - Generate specific, legally-grounded government policy directives
 - Rank intervention strategies by efficiency (AQI drop per unit disruption)
@@ -203,6 +225,7 @@ When a valid `GEMINI_API_KEY` is set, Gemini AI is used to:
 The app gracefully falls back to a deterministic **local scoring engine** if the Gemini key is missing or quota is exhausted.
 
 ### Gaussian Plume Dispersion Model
+
 The policy impact simulation implements the standard Gaussian Plume atmospheric dispersion formula for city-scale AQI forecasting, using empirical sector coefficients calibrated to India CPCB and WHO policy effectiveness studies:
 
 | Sector | Emission Reduction Coefficient |
@@ -214,6 +237,7 @@ The policy impact simulation implements the standard Gaussian Plume atmospheric 
 | Waste / Biomass | 0.18 |
 
 ### Policy Simulation Engine (System 4)
+
 A fast, deterministic model using a weight matrix across five intervention types:
 
 | Intervention | Weight |
@@ -228,9 +252,9 @@ Simulations include wind speed attenuation, 60-day historical AQI blending, tren
 
 ---
 
-## 🗄️ Database
+## Database
 
-AirNet uses **SQLite** (auto-created on first run via Sequelize). The database is **not** committed to version control.
+AirNet uses **SQLite** (auto-created on first run via Sequelize). The database is not committed to version control.
 
 | Table | Purpose |
 |-------|---------|
@@ -241,7 +265,7 @@ AirNet uses **SQLite** (auto-created on first run via Sequelize). The database i
 
 ---
 
-## 🔒 Security Notes
+## Security
 
 - **Never commit your `.env` file.** It is listed in `.gitignore`.
 - Use `.env.example` as a safe template for collaborators.
@@ -250,6 +274,6 @@ AirNet uses **SQLite** (auto-created on first run via Sequelize). The database i
 
 ---
 
-## 📜 License
+## License
 
-ISC License © 2026 Pranav Gupta
+ISC License &copy; 2026 Pranav Gupta
